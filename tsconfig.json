@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "target": "ES2020",
+    "noImplicitAny": true,
+    "sourceMap": true, //al transpilar y generar javascript, crea un map.js con el identificador del archivo del cual hace el build
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "baseUrl": "./",
+    "outDir": "./build"
+  },
+  "exclude": ["node_modules"],
+  "include": ["src/**/*.ts", "src/**/*.js", "src/*.js"]
+}
