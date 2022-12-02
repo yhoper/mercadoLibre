@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-
+const  cors = require('cors')
+ 
 //Middlewares validators
 const {
   validateListSearch
@@ -11,7 +12,7 @@ const {
   listAll
 } = require("../controllers/search");
 
-router.get("/:searching", validateListSearch, listAll); //product 50 items
+router.get("/:searching", cors(), validateListSearch, listAll); //product 50 items
  
 module.exports = router;
 

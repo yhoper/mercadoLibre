@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require("cors");
+
 // const dotenv = require("dotenv");
 // const swaggerUI = require("swagger-ui-express");
 // const swaggerJsdoc = require("swagger-jsdoc");
@@ -8,14 +8,7 @@ const cors = require("cors");
 // require("dotenv").config();
 
 const app = express();
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+
 
 // app.use(function (req, res, next) {
 //   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
