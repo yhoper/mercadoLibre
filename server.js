@@ -1,5 +1,5 @@
 const express = require("express");
-
+const { readdirSync } = require("fs");
 const dotenv = require("dotenv");
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
@@ -18,7 +18,7 @@ app.use(
   swaggerUI.setup(swaggerDocs, { explorer: true })
 ); //Ruta para swagger , el explorer es un search para la docuntación.
 
-readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
+readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
 //port
 const port = process.env.PORT || 8000;

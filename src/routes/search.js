@@ -8,8 +8,8 @@ const { validateListSearch, validateItenSearch } = require("../validators/search
 //controller middlewares
 const { listAll, getItem } = require("../controllers/search");
 
-router.get("/items/:searching", cors(), validateListSearch, listAll); //product 50 items
-router.get("/item/:id", cors(), validateItenSearch, getItem); //product 50 items
+router.get("/:searching", cors(), listAll); //product 50 items
+router.get("/items/:id", cors(), validateItenSearch, getItem); //product 50 items
 
 module.exports = router;
 
