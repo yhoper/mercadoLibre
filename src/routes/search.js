@@ -1,19 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const  cors = require('cors')
- 
+const cors = require("cors");
+
 //Middlewares validators
-const {
-  validateListSearch
-} = require("../validators/search.js");
+const { validateListSearch, validateItenSearch } = require("../validators/search.js");
 
 //controller middlewares
-const {
-  listAll
-} = require("../controllers/search");
+const { listAll, getItem } = require("../controllers/search");
 
-router.get("/:searching", cors(), validateListSearch, listAll); //product 50 items
- 
+router.get("/items/:searching", cors(), validateListSearch, listAll); //product 50 items
+router.get("/item/:id", cors(), validateItenSearch, getItem); //product 50 items
+
 module.exports = router;
 
 /**

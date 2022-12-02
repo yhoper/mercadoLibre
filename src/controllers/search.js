@@ -1,5 +1,9 @@
 const axios = require("axios");
+const { X509Certificate } = require("crypto");
 const { Namespace } = require("socket.io");
+const { config } = require("../config/index");
+
+console.log(config.index);
 
 exports.listAll = async (req, res) => {
   try {
@@ -27,12 +31,10 @@ exports.listAll = async (req, res) => {
     };
 
     let dd = await nuevaFuncion();
-    //console.log(allCategories);
-
     const items = allItem.results.map((item) => ({
       author: {
-        name: "config.firstName",
-        lastname: "config.lastname",
+        name: config.AUTHOR_NAME,
+        lastname: config.AUTHOR_LAST_NAME,
       },
       categories: getNameCategory(item.category_id),
       items: [
@@ -53,10 +55,53 @@ exports.listAll = async (req, res) => {
     }));
 
     res.json(items);
-    //res.json(await items);
-    //res.json(await itemsRequest.data.results);
   } catch (error) {
     console.log(error);
     res.status(400).send("Search failed");
+  }
+};
+
+exports.getItem = async (req, res) => {
+  try {
+    const productId = req.params.id;
+
+    const itemsRequest = await axios(
+      `https://api.mercadolibre.com/items/${productId}`
+    );
+
+    const itemDescriptionRequest = await axios(
+      `https://api.mercadolibre.com/items/${productId}/description`
+    );
+    const itemDescription = itemDescriptionRequest.data;
+
+    const itemData = await itemsRequest?.data;
+
+    const items = {
+      author: {
+        name: config.AUTHOR_NAME,
+        lastname: config.AUTHOR_LAST_NAME,
+      },
+      item: {
+        id: itemData.id,
+        title: itemData.title,
+        price: {
+          currency: itemData.currency_id,
+          amount: Math.trunc(itemData.price),
+          decimals: itemData.price - Math.trunc(itemData.price),
+        },
+      },
+
+      picture: itemData.pictures
+        .slice(0, 1)
+        .map((value) => value.url)
+        .toString(),
+      condition: itemData.condition,
+      free_shipping: itemData.shipping.free_shipping,
+      sold_quantity: itemData.sold_quantity,
+      description: itemDescription.plain_text,
+    };
+    res.json(items);
+  } catch (error) {
+    console.log(error);
   }
 };
