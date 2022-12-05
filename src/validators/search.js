@@ -5,7 +5,7 @@ const { validateResult } = require("../helpers/validateHelper");
 
 const validateListSearch = [
   param("searching")
-    .exists() 
+    .exists()
     .not()
     .isEmpty()
     .withMessage("Debe indicar una opción válida de búsqueda")
@@ -18,6 +18,21 @@ const validateListSearch = [
   },
 ];
 
+const validateItenSearch = [
+  param("id")
+    .exists()
+    .not()
+    .isEmpty()
+    .withMessage("Debe indicar una opción válida de búsqueda")
+    .isLength({ min: 4 })
+    .withMessage("Debe tener más 4 caracteres"),
+
+  //Definición
+  (req, res, next) => {
+    validateResult(req, res, next);
+  },
+];
+
 //exportar el modulo
 
-module.exports = { validateListSearch};
+module.exports = { validateListSearch, validateItenSearch };

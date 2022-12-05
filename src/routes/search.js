@@ -1,28 +1,19 @@
 const express = require("express");
 const router = express.Router();
 
+
 //Middlewares validators
 const {
-  validateListSearch
+  validateListSearch,
+  validateItenSearch,
 } = require("../validators/search.js");
 
 //controller middlewares
-const {
-  listAll
-} = require("../controllers/search");
+const { listAll, getItem } = require("../controllers/search");
 
-router.get("/:searching", validateListSearch, listAll); //product 50 items
- 
+//routes
+
+router.get("/:searching", validateListSearch, listAll); //product 4 items
+router.get("/items/:id", validateItenSearch, getItem); //product 4 items
+
 module.exports = router;
-
-/**
- * @swagger
- *
- *components:
- *  schemas:
- *    Search:
- *      type: object
- *      properties:
- *        searching:
- *          type: "string"
- */
