@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const cors = require("cors");
+
 
 //Middlewares validators
 const {
@@ -11,19 +11,9 @@ const {
 //controller middlewares
 const { listAll, getItem } = require("../controllers/search");
 
-router.get("/:searching", cors(), validateListSearch, listAll); //product 50 items
-router.get("/items/:id", cors(), validateItenSearch, getItem); //product 50 items
+//routes
+
+router.get("/:searching", validateListSearch, listAll); //product 4 items
+router.get("/items/:id", validateItenSearch, getItem); //product 4 items
 
 module.exports = router;
-
-/**
- * @swagger
- *
- *components:
- *  schemas:
- *    Search:
- *      type: object
- *      properties:
- *        searching:
- *          type: "string"
- */
