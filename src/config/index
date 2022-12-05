@@ -1,9 +1,0 @@
-require("dotenv").config();
-
-const config = {
-  dev: process.env.NODE_ENV !== "production",
-  AUTHOR_NAME: process.env.AUTHOR_NAME || "Moises",
-  AUTHOR_LAST_NAME: process.env.AUTHOR_LAST_NAME || "Perez",
-};
-
-module.exports = { config };

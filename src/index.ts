@@ -12,8 +12,6 @@ app.use(express.urlencoded({ extended: false })); //Con esto todos tus EndPoints
 
 readdirSync("./routes").map((r:any) => console.log(r));
 
-//console.log("index", readdirSync(".-/routes"));
-
 //port
 const port = process.env.PORT || 8000;
 

@@ -3,12 +3,15 @@ const router = express.Router();
 const cors = require("cors");
 
 //Middlewares validators
-const { validateListSearch, validateItenSearch } = require("../validators/search.js");
+const {
+  validateListSearch,
+  validateItenSearch,
+} = require("../validators/search.js");
 
 //controller middlewares
 const { listAll, getItem } = require("../controllers/search");
 
-router.get("/:searching", cors(),validateListSearch, listAll); //product 50 items
+router.get("/:searching", cors(), validateListSearch, listAll); //product 50 items
 router.get("/items/:id", cors(), validateItenSearch, getItem); //product 50 items
 
 module.exports = router;

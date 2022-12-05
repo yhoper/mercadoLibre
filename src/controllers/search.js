@@ -1,15 +1,12 @@
 const axios = require("axios");
-const { X509Certificate } = require("crypto");
-const { Namespace } = require("socket.io");
-const { config } = require("../config/index");
-
-console.log(config.index);
+const AUTHOR_NAME = process.env.AUTHOR_NAME;
+const AUTHOR_LAST_NAME = process.env.AUTHOR_LAST_NAME;
 
 exports.listAll = async (req, res) => {
   try {
-    const textToShearing = req.params.search;
+    const textToShearing = req.params.searching;
     const itemsRequest = await axios(
-      `https://api.mercadolibre.com/sites/MLA/search?q=${textToShearing}&limit=20`
+      `https://api.mercadolibre.com/sites/MLA/search?q=${textToShearing}&limit=4`
     );
 
     const allItem = await itemsRequest?.data;
@@ -33,8 +30,8 @@ exports.listAll = async (req, res) => {
     let dd = await nuevaFuncion();
     const items = allItem.results.map((item) => ({
       author: {
-        name: config.AUTHOR_NAME,
-        lastname: config.AUTHOR_LAST_NAME,
+        name: AUTHOR_NAME,
+        lastname: AUTHOR_LAST_NAME,
       },
       categories: getNameCategory(item.category_id),
       items: [
@@ -78,8 +75,8 @@ exports.getItem = async (req, res) => {
 
     const items = {
       author: {
-        name: config.AUTHOR_NAME,
-        lastname: config.AUTHOR_LAST_NAME,
+        name: AUTHOR_NAME,
+        lastname: AUTHOR_LAST_NAME,
       },
       item: {
         id: itemData.id,

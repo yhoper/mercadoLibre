@@ -7,6 +7,7 @@ const swaggerConfig = require("./documentation/swagger.config.json");
 const swaggerJSDoc = require("swagger-jsdoc");
 require("dotenv").config();
 
+
 const app = express();
 
 app.use(express.json({ limit: "2mb" })); //le damos un limite a la respuesta de la data
@@ -18,7 +19,7 @@ app.use(
   swaggerUI.setup(swaggerDocs, { explorer: true })
 ); //Ruta para swagger , el explorer es un search para la docuntación.
 
-readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
+readdirSync("./routes").map((r) => app.use("/api", require(`./routes/ ${r}`)));
 
 //port
 const port = process.env.PORT || 8000;
