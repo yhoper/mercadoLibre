@@ -12,22 +12,11 @@ exports.listAll = async (req, res) => {
     const allItem = await itemsRequest?.data;
 
     const allCategories = await [];
-    const nuevaFuncion = async () => {
-      allItem.available_filters.reduce((acumulador, valorActual) => {
-        valorActual.id === "category"
-          ? valorActual.values.reduce((acum2, valorAct2) =>
-              allCategories.push(valorAct2)
-            )
-          : [];
-      }, []);
-    };
     const getNameCategory = (category_id) => {
       let nameCat = allCategories.find((it) => it.id === category_id);
       let item = nameCat?.name != null ? nameCat.name : "no_category";
       return [item];
     };
-
-    let dd = await nuevaFuncion();
     const items = allItem.results.map((item) => ({
       author: {
         name: AUTHOR_NAME,
@@ -41,7 +30,7 @@ exports.listAll = async (req, res) => {
           price: {
             currency: item.currency_id,
             amount: Math.trunc(item.price),
-            decimals: item.price - Math.trunc(item.price),
+            decimals: Math.trunc(item.price),
           },
           picture: item.thumbnail,
           condition: item.condition,
